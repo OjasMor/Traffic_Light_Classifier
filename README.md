@@ -21,7 +21,6 @@ Some sample images from the dataset (from left to right: red, green, and yellow 
 
 
 ---
-### *Here's what you need to know to complete the project:*
 
 1. **Greater than 90% accuracy**
 2. ***Never* classify red lights as green**
