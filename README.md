@@ -1,10 +1,6 @@
 # Traffic Light Classifier
 ---
 
-In this project, you’ll use your knowledge of computer vision techniques to build a classifier for images of traffic lights! You'll be given a dataset of traffic light images in which one of three lights is illuminated: red, yellow, or green.
-
-In this notebook, you'll pre-process these images, extract features that will help us distinguish the different types of images, and use those features to classify the traffic light images into three classes: red, yellow, or green. The tasks will be broken down into a few sections:
-
 1. **Loading and visualizing the data**. 
       The first step in any classification task is to be familiar with your data; you'll need to load in the images of traffic lights and visualize them!
 
@@ -20,17 +16,13 @@ In this notebook, you'll pre-process these images, extract features that will he
 5. **Evaluate your model**.
     To pass this project, your classifier must be >90% accurate and never classify any red lights as green; it's likely that you'll need to improve the accuracy of your classifier by changing existing features or adding new features. I'd also encourage you to try to get as close to 100% accuracy as possible!
     
-Here are some sample images from the dataset (from left to right: red, green, and yellow traffic lights):
+Some sample images from the dataset (from left to right: red, green, and yellow traffic lights):
 <img src="images/all_lights.png" width="50%" height="50%">
 
 
 ---
 ### *Here's what you need to know to complete the project:*
 
-Some template code has already been provided for you, but you'll need to implement additional code steps to successfully complete this project. Any code that is required to pass this project is marked with **'(IMPLEMENTATION)'** in the header. There are also a couple of questions about your thoughts as you work through this project, which are marked with **'(QUESTION)'** in the header. Make sure to answer all questions and to check your work against the [project rubric](https://review.udacity.com/#!/rubrics/1213/view) to make sure you complete the necessary classification steps!
-
-Your project submission will be evaluated based on the code implementations you provide, and on two main classification criteria.
-Your complete traffic light classifier should have:
 1. **Greater than 90% accuracy**
 2. ***Never* classify red lights as green**
 
@@ -87,7 +79,6 @@ IMAGE_DIR_TEST = "traffic_light_images/test/"
 
 These first few lines of code will load the training traffic light images and store all of them in a variable, `IMAGE_LIST`. This list contains the images and their associated label ("red", "yellow", "green"). 
 
-You are encouraged to take a look at the `load_dataset` function in the helpers.py file. This will give you a good idea about how lots of image files can be read in from a directory using the [glob library](https://pymotw.com/2/glob/). The `load_dataset` function takes in the name of an image directory and returns a list of images and their associated labels. 
 
 For example, the first image-label pair in `IMAGE_LIST` can be accessed by index: 
 ``` IMAGE_LIST[0][:]```.
@@ -112,8 +103,6 @@ Visualize and explore the image data! Write code to display an image in `IMAGE_L
 * Display the image
 * Print out the shape of the image 
 * Print out its corresponding label
-
-See if you can display at least one of each type of traffic light image – red, green, and yellow — and look at their similarities and differences.
 
 
 ```python
@@ -143,11 +132,11 @@ After loading in each image, you have to standardize the input and output!
 
 ### Input
 
-This means that every input image should be in the same format, of the same size, and so on. We'll be creating features by performing the same analysis on every picture, and for a classification task like this, it's important that **similar images create similar features**! 
+This means that every input image should be in the same format, of the same size, and so on. Next, we create features by performing the same analysis on every picture, and for a classification task like this, it's important that **similar images create similar features**! 
 
 ### Output
 
-We also need the output to be a label that is easy to read and easy to compare with other labels. It is good practice to convert categorical data like "red" and "green" to numerical data.
+Also need the output to be a label that is easy to read and easy to compare with other labels. It is good practice to convert categorical data like "red" and "green" to numerical data.
 
 A very common classification output is a 1D list that is the length of the number of classes - three in the case of red, yellow, and green lights - with the values 0 or 1 indicating which class a certain image is. For example, since we have three classes (red, yellow, and green), we can make a list with the order: [red value, yellow value, green value]. In general, order does not matter, we choose the order [red value, yellow value, green value] in this case to reflect the position of each light in descending vertical order.
 
@@ -165,7 +154,7 @@ A red light should have the  label: [1, 0, 0]. Yellow should be: [0, 1, 0]. Gree
 * Resize each image to the desired input size: 32x32px.
 * (Optional) You may choose to crop, shift, or rotate the images in this step as well.
 
-It's very common to have square input sizes that can be rotated (and remain the same size), and analyzed in smaller, square patches. It's also important to make all your images the same size so that they can be sent through the same pipeline of classification steps!
+It's very common to have square input sizes that can be rotated (and remain the same size), and analyzed in smaller, square patches. It's also important to make all images the same size so that they can be sent through the same pipeline of classification steps!
 
 
 ```python
@@ -218,10 +207,8 @@ def one_hot_encode(label):
 
 ### Testing as you Code
 
-After programming a function like this, it's a good idea to test it, and see if it produces the expected output. **In general, it's good practice to test code in small, functional pieces, after you write it**. This way, you can make sure that your code is correct as you continue to build a classifier, and you can identify any errors early on so that they don't compound.
 
-All test code can be found in the file `test_functions.py`. You are encouraged to look through that code and add your own testing code if you find it useful!
-
+All test code can be found in the file `test_functions.py`. 
 One test function you'll find is: `test_one_hot(self, one_hot_function)` which takes in one argument, a one_hot_encode function, and tests its functionality. If your one_hot_label code does not work as expected, this test will print ot an error message that will tell you a bit about why your code failed. Once your code works, this should print out TEST PASSED.
 
 
@@ -302,21 +289,14 @@ pl2.imshow(IMAGE_LIST[5][0])
 
 You'll be using what you now about color spaces, shape analysis, and feature construction to create features that help distinguish and classify the three types of traffic light images.
 
-You'll be tasked with creating **one feature** at a minimum (with the option to create more). The required feature is **a brightness feature using HSV color space**:
 
 1. A brightness feature.
     - Using HSV color space, create a feature that helps you identify the 3 different classes of traffic light.
     - You'll be asked some questions about what methods you tried to locate this traffic light, so, as you progress through this notebook, always be thinking about your approach: what works and what doesn't?
 
-2. (Optional): Create more features! 
-
-Any more features that you create are up to you and should improve the accuracy of your traffic light classification algorithm! One thing to note is that, to pass this project you must **never classify a red light as a green light** because this creates a serious safety risk for a self-driving car. To avoid this misclassification, you might consider adding another feature that specifically distinguishes between red and green lights.
-
-These features will be combined near the end of his notebook to form a complete classification algorithm.
 
 ## Creating a brightness feature 
 
-There are a number of ways to create a brightness feature that will help you characterize images of traffic lights, and it will be up to you to decide on the best procedure to complete this step. You should visualize and test your code as you go.
 
 Pictured below is a sample pipeline for creating a brightness feature (from left to right: standardized image, HSV color-masked image, cropped image, brightness feature):
 
@@ -380,9 +360,9 @@ ax4.imshow(v, cmap='gray')
 <a id='task7'></a>
 ### (IMPLEMENTATION): Create a brightness feature that uses HSV color space
 
-Write a function that takes in an RGB image and returns a 1D feature vector and/or single value that will help classify an image of a traffic light. The only requirement is that this function should apply an HSV colorspace transformation, the rest is up to you. 
+A function that takes in an RGB image and returns a 1D feature vector and/or single value that will help classify an image of a traffic light. The only requirement is that this function should apply an HSV colorspace transformation, the rest is up to you. 
 
-From this feature, you should be able to estimate an image's label and classify it as either a red, green, or yellow traffic light. You may also define helper functions if they simplify your code.
+From this feature, we should be able to estimate an image's label and classify it as either a red, green, or yellow traffic light. We may also define helper functions if they simplify your code.
 
 
 ```python
@@ -430,22 +410,11 @@ def mostColor(hsv):
     return color
 ```
 
-## (QUESTION 1): How do the features you made help you distinguish between the 3 classes of traffic light images?
-
-**Answer:**
-Write your answer in this cell.
-
-1. RGB is converted to HSV
-2. Masking is used to isloate the actual "light" part of the traffic light
-3. Image is cropped to remove extraneous pixels
-4. The image is chucked into 3 sections for each color
-5. Vecotr is used to sum all the brightness and distinguish which light is on
 
 # 4. Classification and Visualizing Error
 
-Using all of your features, write a function that takes in an RGB image and, using your extracted features, outputs whether a light is red, green or yellow as a one-hot encoded label. This classification function should be able to classify any image of a traffic light!
+Using all of your features, we write a function that takes in an RGB image and, using our extracted features, outputs whether a light is red, green or yellow as a one-hot encoded label. This classification function should be able to classify any image of a traffic light!
 
-You are encouraged to write any helper functions or visualization code that you may need, but for testing the accuracy, make sure that this `estimate_label` function returns a one-hot encoded label.
 
 ---
 <a id='task8'></a>
@@ -480,15 +449,15 @@ def estimate_label(rgb_image):
 
 ## Testing the classifier
 
-Here is where we test your classification algorithm using our test set of data that we set aside at the beginning of the notebook! This project will be complete once you've pogrammed a "good" classifier.
+Here is where we test our classification algorithm using our test set of data that we set aside at the beginning of the notebook! This project will be complete once you've pogrammed a "good" classifier.
 
-A "good" classifier in this case should meet the following criteria (and once it does, feel free to submit your project):
+A "good" classifier in this case should meet the following criteria
 1. Get above 90% classification accuracy.
 2. Never classify a red light as a green light. 
 
 ### Test dataset
 
-Below, we load in the test dataset, standardize it using the `standardize` function you defined above, and then **shuffle** it; this ensures that order will not play a role in testing accuracy.
+Below, we load in the test dataset, standardize it using the `standardize` function we defined above, and then **shuffle** it; this ensures that order will not play a role in testing accuracy.
 
 
 
@@ -506,7 +475,7 @@ random.shuffle(STANDARDIZED_TEST_LIST)
 
 ## Determine the Accuracy
 
-Compare the output of your classification algorithm (a.k.a. your "model") with the true labels and determine the accuracy.
+Compare the output of our classification algorithm (a.k.a. your "model") with the true labels and determine the accuracy.
 
 This code stores all the misclassified images, their predicted labels, and their true labels, in a list called `MISCLASSIFIED`. This code is used for testing and *should not be changed*.
 
@@ -562,7 +531,7 @@ print("Number of misclassified images = " + str(len(MISCLASSIFIED)) +' out of '+
 <a id='task9'></a>
 ### Visualize the misclassified images
 
-Visualize some of the images you classified wrong (in the `MISCLASSIFIED` list) and note any qualities that make them difficult to classify. This will help you identify any weaknesses in your classification algorithm.
+Visualize some of the images we classified wrong (in the `MISCLASSIFIED` list) and note any qualities that make them difficult to classify. This will help us identify any weaknesses in your classification algorithm.
 
 
 ```python
@@ -585,16 +554,10 @@ print(str(MISCLASSIFIED[1][1]))
 
 ---
 <a id='question2'></a>
-## (Question 2): After visualizing these misclassifications, what weaknesses do you think your classification algorithm has? Please note at least two.
 
-**Answer:** Write your answer in this cell.
-
-1. Some images have weird aspect ratios and this messes up where we think each color should be located.
-2. The brightness in some images is very high causing the masking to work poorly.
 
 ## Test if you classify any red lights as green
 
-**To pass this project, you must not classify any red lights as green!** Classifying red lights as green would cause a car to drive through a red traffic light, so this red-as-green error is very dangerous in the real world. 
 
 The code below lets you test to see if you've misclassified any red lights as green in the test set. **This test assumes that `MISCLASSIFIED` is a list of tuples with the order: [misclassified_image, predicted_label, true_label].**
 
@@ -617,23 +580,7 @@ else:
 
 **<span style="color: green;">TEST PASSED</span>**
 
-
-# 5. Improve your algorithm!
-
-**Submit your project after you have completed all implementations, answered all questions, AND when you've met the two criteria:**
-1. Greater than 90% accuracy classification
-2. No red lights classified as green
-
-If you did not meet these requirements (which is common on the first attempt!), revisit your algorithm and tweak it to improve light recognition -- this could mean changing the brightness feature, performing some background subtraction, or adding another feature!
-
 ---
-
-### Going Further (Optional Challenges)
-
-If you found this challenge easy, I suggest you go above and beyond! Here are a couple **optional** (meaning you do not need to implement these to submit and pass the project) suggestions:
-* (Optional) Aim for >95% classification accuracy.
-* (Optional) Some lights are in the shape of arrows; further classify the lights as round or arrow-shaped.
-* (Optional) Add another feature and aim for as close to 100% accuracy as you can get!
 
 
 ```python
